@@ -21,7 +21,7 @@ services:
       - --entrypoints.appwrite_websecure.address=:443
     restart: unless-stopped
     ports:
-      - 8080:80
+      - 80:80
       - 443:443
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -34,7 +34,7 @@ services:
       - appwrite
 
   appwrite:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     container_name: appwrite
     <<: *x-logging
     restart: unless-stopped
@@ -63,7 +63,7 @@ services:
     depends_on:
       - mariadb
       - redis
-#      - clamav
+      #      - clamav
       - influxdb
     environment:
       - _APP_ENV
@@ -147,16 +147,16 @@ services:
       - _APP_SMS_FROM
 
   appwrite-realtime:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     entrypoint: realtime
     container_name: appwrite-realtime
     <<: *x-logging
     restart: unless-stopped
     labels:
-      - "traefik.enable=true"
-      - "traefik.constraint-label-stack=appwrite"
-      - "traefik.docker.network=appwrite"
-      - "traefik.http.services.appwrite_realtime.loadbalancer.server.port=80"
+      - 'traefik.enable=true'
+      - 'traefik.constraint-label-stack=appwrite'
+      - 'traefik.docker.network=appwrite'
+      - 'traefik.http.services.appwrite_realtime.loadbalancer.server.port=80'
       #ws
       - traefik.http.routers.appwrite_realtime_ws.entrypoints=appwrite_web
       - traefik.http.routers.appwrite_realtime_ws.rule=PathPrefix(`/v1/realtime`)
@@ -189,7 +189,7 @@ services:
       - _APP_LOGGING_CONFIG
 
   appwrite-worker-audits:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     entrypoint: worker-audits
     <<: *x-logging
     container_name: appwrite-worker-audits
@@ -215,7 +215,7 @@ services:
       - _APP_LOGGING_CONFIG
 
   appwrite-worker-webhooks:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     entrypoint: worker-webhooks
     <<: *x-logging
     container_name: appwrite-worker-webhooks
@@ -237,7 +237,7 @@ services:
       - _APP_LOGGING_CONFIG
 
   appwrite-worker-deletes:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     entrypoint: worker-deletes
     <<: *x-logging
     container_name: appwrite-worker-deletes
@@ -292,7 +292,7 @@ services:
       - _APP_EXECUTOR_HOST
 
   appwrite-worker-databases:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     entrypoint: worker-databases
     <<: *x-logging
     container_name: appwrite-worker-databases
@@ -318,7 +318,7 @@ services:
       - _APP_LOGGING_CONFIG
 
   appwrite-worker-builds:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     entrypoint: worker-builds
     <<: *x-logging
     container_name: appwrite-worker-builds
@@ -346,7 +346,7 @@ services:
       - _APP_LOGGING_CONFIG
 
   appwrite-worker-certificates:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     entrypoint: worker-certificates
     <<: *x-logging
     container_name: appwrite-worker-certificates
@@ -378,7 +378,7 @@ services:
       - _APP_LOGGING_CONFIG
 
   appwrite-worker-functions:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     entrypoint: worker-functions
     <<: *x-logging
     container_name: appwrite-worker-functions
@@ -409,7 +409,7 @@ services:
       - DOCKERHUB_PULL_PASSWORD
 
   appwrite-executor:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     entrypoint: executor
     <<: *x-logging
     container_name: appwrite-executor
@@ -467,7 +467,7 @@ services:
       - DOCKERHUB_PULL_PASSWORD
 
   appwrite-worker-mails:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     entrypoint: worker-mails
     <<: *x-logging
     container_name: appwrite-worker-mails
@@ -494,7 +494,7 @@ services:
       - _APP_LOGGING_CONFIG
 
   appwrite-worker-messaging:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     entrypoint: worker-messaging
     <<: *x-logging
     container_name: appwrite-worker-messaging
@@ -514,7 +514,7 @@ services:
       - _APP_LOGGING_CONFIG
 
   appwrite-maintenance:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     entrypoint: maintenance
     <<: *x-logging
     container_name: appwrite-maintenance
@@ -544,7 +544,7 @@ services:
       - _APP_MAINTENANCE_RETENTION_AUDIT
 
   appwrite-usage-timeseries:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     entrypoint:
       - usage
       - --type=timeseries
@@ -576,7 +576,7 @@ services:
       - _APP_LOGGING_CONFIG
 
   appwrite-usage-database:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     entrypoint:
       - usage
       - --type=database
@@ -608,7 +608,7 @@ services:
       - _APP_LOGGING_CONFIG
 
   appwrite-schedule:
-    image: appwrite/appwrite:1.0.2
+    image: appwrite/appwrite:1.0.3
     entrypoint: schedule
     container_name: appwrite-schedule
     <<: *x-logging
@@ -681,19 +681,9 @@ services:
     restart: unless-stopped
     networks:
       - appwrite
-    environment: 
+    environment:
       - _APP_INFLUXDB_HOST
       - _APP_INFLUXDB_PORT
-
-  # grafana:
-  #   image: grafana/grafana
-  #   container_name: appwrite-grafana
-  #   ports:
-  #     - "3001:3000"
-  #   networks:
-  #     - appwrite
-  #   volumes:
-  #     - appwrite-grafana:/var/lib/grafana
 
 networks:
   gateway:
@@ -711,4 +701,3 @@ volumes:
   appwrite-influxdb:
   appwrite-config:
   appwrite-executor:
-  # appwrite-grafana:
