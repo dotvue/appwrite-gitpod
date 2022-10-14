@@ -27,3 +27,8 @@ To get started with Docker Compose on Gitpod, copy the contents of this folder t
 - 删除所有未使用的卷：docker volume prune -f
 - 删除所有容器和镜像：https://blog.csdn.net/weixin_44251065/article/details/125222978
 - Docker — 从入门到实践：https://yeasy.gitbook.io/docker_practice/
+
+## backup and restore
+
+- chmod +x backup.sh, ./backup.sh
+- chmod +x restore.sh, ./restore.sh
