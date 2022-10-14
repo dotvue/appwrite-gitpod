@@ -21,7 +21,7 @@ To get started with Docker Compose on Gitpod, copy the contents of this folder t
 ## docker-compose
 
 - 在后台运行服务容器：docker compose up -d --remove-orphans
-- 停止运行服务容器：docker-compose stop
+- 停止运行服务容器：docker compose stop
 - 停止并删除服务容器：docker compose down -v
 - 删除所有的镜像：docker rmi -f $(docker images -aq)
 - 删除所有未使用的卷：docker volume prune -f
