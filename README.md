@@ -2,11 +2,13 @@
 
 This is a [Appwrite](https://appwrite.io/) template configured for ephemeral development environments on [Gitpod](https://www.gitpod.io/).
 
+https://github.com/appwrite/integration-for-gitpod
+
 ## Next Steps
 
 Click the button below to start a new development environment:
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/appwrite/integration-for-gitpod)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/dotvue/appwrite-gitpod)
 
 ## Get Started With Your Own Project
 
